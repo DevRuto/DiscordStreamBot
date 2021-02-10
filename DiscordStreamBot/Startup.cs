@@ -9,9 +9,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using DiscordStreamBot.Data;
 using System.Text.Json;
 using DiscordStreamBot.Serialization;
+using DiscordStreamBot.Discord;
+using Serilog;
 
 namespace DiscordStreamBot
 {
@@ -31,6 +32,8 @@ namespace DiscordStreamBot
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
+            services.AddSingleton<IDiscordService, DiscordService>();
+
             services.AddControllers()
                 .AddJsonOptions(options =>
                 {
@@ -42,7 +45,7 @@ namespace DiscordStreamBot
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDiscordService discord)
         {
             if (env.IsDevelopment())
             {
@@ -55,6 +58,8 @@ namespace DiscordStreamBot
                 app.UseHsts();
             }
 
+            app.UseSerilogRequestLogging();
+
             // app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -66,6 +71,8 @@ namespace DiscordStreamBot
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+
+            discord.StartBot().GetAwaiter().GetResult();
         }
     }
 }
