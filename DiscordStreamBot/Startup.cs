@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DiscordStreamBot.Data;
 using System.Text.Json;
+using DiscordStreamBot.Serialization;
 
 namespace DiscordStreamBot
 {
@@ -34,11 +35,7 @@ namespace DiscordStreamBot
             services.AddControllers()
                 .AddJsonOptions(options =>
                 {
-                    options.JsonSerializerOptions.PropertyNamingPolicy = new JsonSerializerOptions
-                    {
-                        PropertyNamingPolicy = new SnakeCaseNamingPolicy(),
-                        PropertyNameCaseInsensitive = true
-                    };
+                    options.JsonSerializerOptions.PropertyNamingPolicy = new SnakeCaseNamingPolicy();
                     options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                     options.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
                     options.JsonSerializerOptions.Converters.Add(new LongConverter());
