@@ -30,7 +30,6 @@ namespace DiscordStreamBot
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
 
             services.AddControllers()
                 .AddJsonOptions(options =>
