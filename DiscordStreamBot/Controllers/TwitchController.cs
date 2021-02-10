@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
+using DiscordStreamBot.Twitch;
 using Microsoft.AspNetCore.Mvc;
-using Twitch;
 
-namespace Controllers
+namespace DiscordStreamBot.Controllers
 {
     [ApiController]
     [Route("[controller]")]

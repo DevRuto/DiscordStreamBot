@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DiscordStreamBot.Data;
+using System.Text.Json;
 
 namespace DiscordStreamBot
 {
@@ -29,6 +30,19 @@ namespace DiscordStreamBot
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.PropertyNamingPolicy = new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = new SnakeCaseNamingPolicy(),
+                        PropertyNameCaseInsensitive = true
+                    };
+                    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                    options.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
+                    options.JsonSerializerOptions.Converters.Add(new LongConverter());
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

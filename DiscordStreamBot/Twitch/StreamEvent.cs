@@ -1,4 +1,4 @@
-namespace Twitch
+namespace DiscordStreamBot.Twitch
 {
     public record StreamEvents(StreamEvent[] Data);
 
