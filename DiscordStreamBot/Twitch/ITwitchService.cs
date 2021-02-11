@@ -4,6 +4,6 @@ namespace DiscordStreamBot.Twitch
 {
     public interface ITwitchService
     {
-        Task<string> GetGameName(string id);
+        Task<string> GetGameName(string gameId);
     }
 }
