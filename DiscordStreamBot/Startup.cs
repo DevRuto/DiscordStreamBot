@@ -13,6 +13,7 @@ using System.Text.Json;
 using DiscordStreamBot.Serialization;
 using DiscordStreamBot.Discord;
 using Serilog;
+using DiscordStreamBot.Twitch;
 
 namespace DiscordStreamBot
 {
@@ -32,7 +33,8 @@ namespace DiscordStreamBot
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            services.AddSingleton<IDiscordService, DiscordService>();
+            services.AddTwitch();
+            services.AddDiscord();
 
             services.AddControllers()
                 .AddJsonOptions(options =>
