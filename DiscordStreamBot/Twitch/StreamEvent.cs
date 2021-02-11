@@ -5,6 +5,7 @@ namespace DiscordStreamBot.Twitch
     public record StreamEvent(
         string Id,
         string UserId,
+        string UserName,
         string GameId,
         long[] CommunityIds,
         string Type,
