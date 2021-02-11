@@ -47,7 +47,7 @@ namespace DiscordStreamBot
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDiscordService discord)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services, IDiscordService discord)
         {
             if (env.IsDevelopment())
             {
@@ -74,7 +74,7 @@ namespace DiscordStreamBot
                 endpoints.MapFallbackToPage("/_Host");
             });
 
-            discord.StartBot().GetAwaiter().GetResult();
+            discord.StartBot(services).GetAwaiter().GetResult();
         }
     }
 }

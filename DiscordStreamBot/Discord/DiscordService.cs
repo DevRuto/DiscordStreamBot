@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using DSharpPlus;
@@ -24,7 +25,7 @@ namespace DiscordStreamBot.Discord
             });
         }
 
-        public async Task StartBot()
+        public async Task StartBot(IServiceProvider services = null)
         {
             _logger.LogInformation("Discord | Starting Discord Bot");
 
@@ -32,6 +33,7 @@ namespace DiscordStreamBot.Discord
 
             var commands = _discordClient.UseCommandsNext(new CommandsNextConfiguration
             {
+                Services = services,
                 StringPrefixes = new[] { _config["Discord:Prefix"] }
             });
             commands.RegisterCommands(Assembly.GetExecutingAssembly());
